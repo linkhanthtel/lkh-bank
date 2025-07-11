@@ -36,6 +36,9 @@ class Transaction(Base):
     transaction_type = Column(String)  # "deposit" or "withdrawal"
     timestamp = Column(DateTime, default=datetime.utcnow)
 
+# Create tables
+Base.metadata.create_all(bind=engine)
+
 # Pydantic models
 class TransactionResponse(BaseModel):
     id: int
@@ -49,10 +52,6 @@ class TransferCreate(BaseModel):
     to_account_id: int
     amount: float
 
-# Create tables
-Base.metadata.create_all(bind=engine)
-
-# Pydantic models
 class AccountCreate(BaseModel):
     account_number: str
     owner_name: str
